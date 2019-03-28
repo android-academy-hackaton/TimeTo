@@ -7,7 +7,7 @@ import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.view.MenuItem;
 import android.widget.Toast;
-
+import hackaton.academy.timeto.Fragment.BarFragment;
 import java.util.List;
 
 import hackaton.academy.timeto.Fragment.ClubFragment;
@@ -29,7 +29,7 @@ public class MainActivity extends AppCompatActivity {
 
     //Fragments
     RestFragment chatFragment;
-    hackaton.academy.timeto.BarFragment callsFragment;
+    BarFragment callsFragment;
     ClubFragment contactsFragment;
     MenuItem prevMenuItem;
 
@@ -120,7 +120,7 @@ public class MainActivity extends AppCompatActivity {
 
     private void setupViewPager(ViewPager viewPager) {
         ViewPagerAdapter adapter = new ViewPagerAdapter(getSupportFragmentManager());
-        callsFragment = new hackaton.academy.timeto.BarFragment();
+        callsFragment = new BarFragment();
         chatFragment = new RestFragment();
         contactsFragment = new ClubFragment();
         adapter.addFragment(callsFragment);
