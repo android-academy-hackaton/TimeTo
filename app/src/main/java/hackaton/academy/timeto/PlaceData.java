@@ -16,9 +16,7 @@ public class PlaceData {
     private String overview;
     private float distance;
 
-    public PlaceData(int imageResourceId, String name,  String overview, float distance) {
-
-    public PlaceData(String imageURL, String name,  String overview) {
+    public PlaceData(String imageURL, String name,  String overview, float distance) {
         this.name = name;
         this.imageURL = imageURL;
         this.overview = overview;
@@ -32,8 +30,6 @@ public class PlaceData {
     public void setName(String name) {
         this.name = name;
     }
-
-
 
     public String getOverview() {
         return overview;
