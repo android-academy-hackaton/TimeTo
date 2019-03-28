@@ -5,12 +5,13 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/singlePlaceView"
     android:layout_width="match_parent"
-    android:layout_height="100dp">
+    android:layout_height="100dp"
+    android:background="@color/back">
 
     <ImageView
         android:id="@+id/singlePlacePic"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="123dp"
+        android:layout_height="86dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
@@ -28,6 +29,7 @@
         android:layout_marginEnd="8dp"
         android:layout_marginRight="8dp"
         android:text="Title"
+        android:textColor="@color/White"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.022"
         app:layout_constraintStart_toEndOf="@+id/singlePlacePic"
@@ -35,17 +37,33 @@
 
     <TextView
         android:id="@+id/singlePlaceContext"
-        android:layout_width="287dp"
-        android:layout_height="43dp"
+        android:layout_width="262dp"
+        android:layout_height="19dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginRight="8dp"
+        android:text="Context"
+        android:textColor="@color/Gray"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/singlePlacePic"
+        app:layout_constraintTop_toBottomOf="@+id/singlePlaceTitle" />
+
+    <TextView
+        android:id="@+id/singlePlaceDist"
+        android:layout_width="109dp"
+        android:layout_height="20dp"
         android:layout_marginStart="8dp"
         android:layout_marginLeft="8dp"
         android:layout_marginTop="8dp"
         android:layout_marginEnd="8dp"
         android:layout_marginRight="8dp"
         android:layout_marginBottom="8dp"
-        android:text="Context"
+        android:text="distance"
+        android:textColor="@color/Gray"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/singlePlacePic"
-        app:layout_constraintTop_toBottomOf="@+id/singlePlaceTitle" />
+        app:layout_constraintStart_toStartOf="@+id/singlePlaceContext"
+        app:layout_constraintTop_toBottomOf="@+id/singlePlaceContext" />
 </android.support.constraint.ConstraintLayout>

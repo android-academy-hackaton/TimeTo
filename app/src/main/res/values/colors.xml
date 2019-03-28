@@ -142,5 +142,11 @@
     <color name="MediumBlue">#0000CD</color>
     <color name="DarkBlue">#00008B</color>
     <color name="Navy">#000080</color>
+    <color name="bottom">#25202B</color>
+    <color name="back">#1B1720</color>
+
+    <color name="rest">#D54490 </color>
+    <color name="bar">#E68E36 </color>
+    <color name="club">#40E276  </color>
     <color name="Black">#000000</color>
 </resources>

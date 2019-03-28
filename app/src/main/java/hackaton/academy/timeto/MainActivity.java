@@ -37,22 +37,6 @@ public class MainActivity extends AppCompatActivity {
 
         //Initializing the bottomNavigationView
         bottomNavigationView = findViewById(R.id.bottom_navigation);
-        bottomNavigationView.setOnNavigationItemReselectedListener(
-                new BottomNavigationView.OnNavigationItemReselectedListener() {
-                    @Override
-                    public void onNavigationItemReselected(@NonNull MenuItem menuItem) {
-                        Fragment fragment = null;
-                        fragment = new MapFragment();
-                        if (fragment != null) {
-                            FragmentManager fragmentManager = getSupportFragmentManager();
-                            fragmentManager.beginTransaction()
-                                    .replace(R.id.recyclerView, fragment).commit();
-
-                        }
-                    }
-                }
-
-        );
         bottomNavigationView.setOnNavigationItemSelectedListener(
                 new BottomNavigationView.OnNavigationItemSelectedListener() {
                     @Override

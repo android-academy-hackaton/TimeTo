@@ -1,11 +1,13 @@
 package hackaton.academy.timeto;
 
 
+import android.graphics.Canvas;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.helper.ItemTouchHelper;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -18,6 +20,7 @@ public class BarFragment extends Fragment {
     private RecyclerView mRecyclerView;
     private RecyclerView.Adapter mAdapter;
     private RecyclerView.LayoutManager mLayoutManager;
+    SwipeController mSwipeController;
     private View mRootView;
 
     public BarFragment() {
@@ -30,6 +33,7 @@ public class BarFragment extends Fragment {
                              Bundle savedInstanceState) {
         mRootView = inflater.inflate(R.layout.fragment_bar, container, false);
         initRecyclerView();
+
         // Inflate the layout for this fragment
         return mRootView;
     }
@@ -43,6 +47,22 @@ public class BarFragment extends Fragment {
         //Adding RecyclerView Divider / Separator
         mRecyclerView.addItemDecoration(new DividerItemDecoration(mRootView.getContext(), LinearLayoutManager.VERTICAL));
         mRecyclerView.setAdapter(mAdapter);
+        mSwipeController = new SwipeController(new SwipeControllerActions() {
+            @Override
+            public void onRightClicked(int position) {
+                //mAdapter.players.remove(position);
+                mAdapter.notifyItemRemoved(position);
+                mAdapter.notifyItemRangeChanged(position, mAdapter.getItemCount());
+            }
+        });        ItemTouchHelper itemTouchhelper = new ItemTouchHelper(mSwipeController);
+        itemTouchhelper.attachToRecyclerView(mRecyclerView);
+        mRecyclerView.addItemDecoration(new RecyclerView.ItemDecoration()
+        {
+            @Override
+            public void onDraw(Canvas c, RecyclerView parent, RecyclerView.State state) {
+                mSwipeController.onDraw(c);
+            }
+        });
     }
 
     private List<PlaceData> LoadPlaces() {
