@@ -10,6 +10,9 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+
+import com.squareup.picasso.Picasso;
+
 import java.util.List;
 
 
@@ -18,7 +21,7 @@ public class PlaceViewAdapter extends RecyclerView.Adapter<PlaceViewAdapter.View
     private LayoutInflater mInflater;
     private List<PlaceData> mDataSource;
     private Context mContext;
-
+    String imageUrl = "https://maps.googleapis.com/maps/api/place/photo?key=AIzaSyAYQCLhhFzj-FWnHnKvvtQ-YJh0QRBolV4&maxwidth=400&&photoreference=";
     public PlaceViewAdapter(List<PlaceData> places) {
         mDataSource = places;
     }
@@ -64,7 +67,9 @@ public class PlaceViewAdapter extends RecyclerView.Adapter<PlaceViewAdapter.View
         }
 
         public void onBindViewHolder(PlaceData placeData) {
-            ivImage.setImageResource(placeData.getImageResourceId());
+            String temp = imageUrl+placeData.getImageURL();
+            Picasso.get().load(imageUrl+placeData.getImageURL()).into(ivImage);
+//            ivImage.setImageResource(placeData.getImageResourceId());
             tvTitle.setText(placeData.getName());
             tvOverview.setText(placeData.getOverview());
             distanceTv.setText((int)placeData.getDistance() + " Meters");

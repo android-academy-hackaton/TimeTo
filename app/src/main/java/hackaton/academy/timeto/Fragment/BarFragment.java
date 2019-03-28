@@ -2,10 +2,8 @@ package hackaton.academy.timeto.Fragment;
 
 
 import android.Manifest;
-import android.annotation.SuppressLint;
 import android.content.pm.PackageManager;
 import android.graphics.Canvas;
-import android.location.Location;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -19,11 +17,10 @@ import android.support.v7.widget.helper.ItemTouchHelper;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.Toast;
 
-import com.google.android.gms.location.FusedLocationProviderClient;
-import com.google.android.gms.location.LocationServices;
-import com.google.android.gms.tasks.OnSuccessListener;
+import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -34,6 +31,7 @@ import hackaton.academy.timeto.PlaceViewAdapter;
 import hackaton.academy.timeto.R;
 import hackaton.academy.timeto.SwipeController;
 import hackaton.academy.timeto.SwipeControllerActions;
+import hackaton.academy.timeto.model.Photo;
 import hackaton.academy.timeto.model.Place;
 import hackaton.academy.timeto.model.Result;
 import hackaton.academy.timeto.rest.PlacesService;
@@ -48,8 +46,6 @@ public class BarFragment extends Fragment {
     private RecyclerView.Adapter mAdapter;
     private RecyclerView.LayoutManager mLayoutManager;
     private View mRootView;
-    private FusedLocationProviderClient fusedLocationClient;
-
     SwipeController mSwipeController;
 
     private List<PlaceData> places = new ArrayList<>();
@@ -87,11 +83,13 @@ public class BarFragment extends Fragment {
             ActivityCompat.requestPermissions(getActivity(),
                     new String[]{Manifest.permission.ACCESS_FINE_LOCATION},
                     100);
+            Toast.makeText(getActivity(), "Requesting permission...", Toast.LENGTH_SHORT).show();
         }
         // MY_PERMISSION_REQUEST_READ_FINE_LOCATION is an
         // app-defined int constant. The callback method gets the
         // result of the request.
         else {
+            Toast.makeText(getActivity(), "Calling get data!", Toast.LENGTH_SHORT).show();
             getData();
         }
         initRecyclerView();
@@ -100,8 +98,6 @@ public class BarFragment extends Fragment {
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        fusedLocationClient = LocationServices.getFusedLocationProviderClient(getActivity());
-
     }
 
     @Override
@@ -119,8 +115,8 @@ public class BarFragment extends Fragment {
 
     private void initRecyclerView() {
         mLayoutManager = new LinearLayoutManager(mRootView.getContext());
-        List<PlaceData> dataSource = places;
-        mAdapter = new PlaceViewAdapter(dataSource);
+//        List<PlaceData> dataSource = places;
+        mAdapter = new PlaceViewAdapter(places);
         mRecyclerView = mRootView.findViewById(R.id.recyclerView);
         mRecyclerView.setLayoutManager(mLayoutManager);
         //Adding RecyclerView Divider / Separator
@@ -144,56 +140,37 @@ public class BarFragment extends Fragment {
         });
     }
 
-    @SuppressLint("MissingPermission")
     private void getData() {
 
-        Toast.makeText(getActivity(), "getData", Toast.LENGTH_SHORT).show();
 
-        fusedLocationClient.getLastLocation()
-                .addOnSuccessListener(getActivity(), new OnSuccessListener<Location>() {
-                    @Override
-                    public void onSuccess(final Location location) {
-                        // Got last known location. In some rare situations this can be null.
-                        if (location != null) {
-                            PlacesService placeService = RestManager.getPlaceServiceInstance();
-                            placeService.getPlaces(location.getLatitude() + ","
-                                    + location.getLongitude(),
-                                    1500, "restaurant",
-                                    Constants.API_KEY).enqueue(new Callback<Place>() {
-                                @Override
-                                public void onResponse(Call<Place> call, Response<Place> response) {
+        PlacesService placesService = RestManager.getPlaceServiceInstance();
+        placesService.getPlaces("-33.8670522,151.1957362", 1500, "restaurant", Constants.API_KEY).enqueue(new Callback<Place>() {
+            @Override
+            public void onResponse(Call<Place> call, Response<Place> response) {
 
-                                    Place body = response.body(); // TODO Create loading inside the fragment
-                                    List<Result> results = null;
-                                    if (body != null) {
-                                        results = body.getResults();
-                                    }
-                                    if (results != null) {
-                                        for (int i = 0; i < results.size(); i++) {
-                                            double lat = results.get(i).getGeometry().getLocation().getLat();
-                                            double lon = results.get(i).getGeometry().getLocation().getLng();
-                                            Location placeLocation = new Location("placeLoc");
-                                            placeLocation.setLatitude(lat);
-                                            placeLocation.setLongitude(lon);
-                                            float distance = placeLocation.distanceTo(location);
-                                            places.add(new
-                                                    PlaceData(R.drawable.ic_launcher_background,
-                                                    results.get(i).getName(),
-                                                    "" + results.get(i).getRating(), distance));
-                                        }
-                                        mAdapter.notifyDataSetChanged();
-                                    }
-
-                                }
-
-                                @Override
-                                public void onFailure(Call<Place> call, Throwable t) {
-
-                                }
-                            });
+                Place body = response.body(); // TODO Create loading inside the fragment
+                List<Result> results = null;
+                if (body != null) {
+                    results = body.getResults();
+                }
+                String photoRefrence = "";
+                if (results != null) {
+                    for (int i = 0; i < results.size(); i++) {
+                        List<Photo> photoList = results.get(i).getPhotos();
+                        if(photoList.size() > 0) {
+                          photoRefrence = photoList.get(0).getPhotoReference();
                         }
+                        places.add(new PlaceData(photoRefrence, results.get(i).getName(), "Awsome place"));
                     }
-                });
+                    mAdapter.notifyDataSetChanged();
+                }
 
+            }
+
+            @Override
+            public void onFailure(Call<Place> call, Throwable t) {
+
+            }
+        });
     }
 }

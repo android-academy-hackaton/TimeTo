@@ -3,13 +3,24 @@ package hackaton.academy.timeto;
 public class PlaceData {
 
     private String name;
-    private int imageResourceId;
+
+    public String getImageURL() {
+        return imageURL;
+    }
+
+    public void setImageURL(String imageURL) {
+        this.imageURL = imageURL;
+    }
+
+    private String imageURL;
     private String overview;
     private float distance;
 
     public PlaceData(int imageResourceId, String name,  String overview, float distance) {
+
+    public PlaceData(String imageURL, String name,  String overview) {
         this.name = name;
-        this.imageResourceId = imageResourceId;
+        this.imageURL = imageURL;
         this.overview = overview;
         this.distance = distance;
     }
@@ -22,13 +33,7 @@ public class PlaceData {
         this.name = name;
     }
 
-    public int getImageResourceId() {
-        return imageResourceId;
-    }
 
-    public void setImageResourceId(int imageResourceId) {
-        this.imageResourceId = imageResourceId;
-    }
 
     public String getOverview() {
         return overview;
