@@ -12,7 +12,6 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import java.util.List;
 
-import hackaton.academy.timeto.R;
 
 public class PlaceViewAdapter extends RecyclerView.Adapter<PlaceViewAdapter.ViewHolder> {
 
@@ -20,15 +19,15 @@ public class PlaceViewAdapter extends RecyclerView.Adapter<PlaceViewAdapter.View
     private List<PlaceData> mDataSource;
     private Context mContext;
 
-    public PlaceViewAdapter(Context context, List<PlaceData> movies) {
-        mDataSource = movies;
-        mContext = context;
-        mInflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+    public PlaceViewAdapter(List<PlaceData> places) {
+        mDataSource = places;
     }
 
     @NonNull
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int i) {
+        mContext = viewGroup.getContext();
+        mInflater = (LayoutInflater) mContext.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         View view = mInflater.inflate(R.layout.place_row_screen, viewGroup, false);
         return new ViewHolder(view);
     }

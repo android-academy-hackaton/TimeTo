@@ -1,4 +1,4 @@
-
+package hackaton.academy.timeto;
 
 public class PlaceData {
 

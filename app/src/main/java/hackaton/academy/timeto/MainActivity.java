@@ -1,17 +1,18 @@
 package hackaton.academy.timeto;
 
+import android.app.FragmentTransaction;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.MenuItem;
 
-import hackaton.academy.timeto.Fragment.BarFragment;
 import hackaton.academy.timeto.Fragment.ClubFragment;
 import hackaton.academy.timeto.Fragment.RestFragment;
-import hackaton.academy.timeto.R;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -35,17 +36,32 @@ public class MainActivity extends AppCompatActivity {
         viewPager = (ViewPager) findViewById(R.id.viewpager);
 
         //Initializing the bottomNavigationView
-        bottomNavigationView = (BottomNavigationView)findViewById(R.id.bottom_navigation);
+        bottomNavigationView = findViewById(R.id.bottom_navigation);
+        bottomNavigationView.setOnNavigationItemReselectedListener(
+                new BottomNavigationView.OnNavigationItemReselectedListener() {
+                    @Override
+                    public void onNavigationItemReselected(@NonNull MenuItem menuItem) {
+                        Fragment fragment = null;
+                        fragment = new MapFragment();
+                        if (fragment != null) {
+                            FragmentManager fragmentManager = getSupportFragmentManager();
+                            fragmentManager.beginTransaction()
+                                    .replace(R.id.recyclerView, fragment).commit();
 
+                        }
+                    }
+                }
+
+        );
         bottomNavigationView.setOnNavigationItemSelectedListener(
                 new BottomNavigationView.OnNavigationItemSelectedListener() {
                     @Override
                     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
                         switch (item.getItemId()) {
-                            case R.id.menu_restaurants:
+                            case R.id.menu_pabs:
                                 viewPager.setCurrentItem(0);
                                 break;
-                            case R.id.menu_pabs:
+                            case R.id.menu_restaurants:
                                 viewPager.setCurrentItem(1);
                                 break;
                             case R.id.menu_club:
@@ -71,10 +87,8 @@ public class MainActivity extends AppCompatActivity {
                 {
                     bottomNavigationView.getMenu().getItem(0).setChecked(false);
                 }
-                Log.d("page", "onPageSelected: "+position);
                 bottomNavigationView.getMenu().getItem(position).setChecked(true);
                 prevMenuItem = bottomNavigationView.getMenu().getItem(position);
-
             }
 
             @Override
