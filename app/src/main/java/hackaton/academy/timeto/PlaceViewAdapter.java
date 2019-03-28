@@ -46,10 +46,11 @@ public class PlaceViewAdapter extends RecyclerView.Adapter<PlaceViewAdapter.View
     }
     public class ViewHolder extends RecyclerView.ViewHolder {
 
-        public final ImageView ivImage;
-        public final TextView tvTitle;
-        public final TextView tvOverview;
-        public final ConstraintLayout clLayout;
+        public ImageView ivImage;
+        public TextView tvTitle;
+        public TextView tvOverview;
+        public ConstraintLayout clLayout;
+        public TextView distanceTv;
 
         public ViewHolder(View view) {
             super(view);
@@ -57,12 +58,16 @@ public class PlaceViewAdapter extends RecyclerView.Adapter<PlaceViewAdapter.View
             tvTitle = view.findViewById(R.id.singlePlaceTitle);
             tvOverview = view.findViewById(R.id.singlePlaceContext);
             clLayout = view.findViewById(R.id.singlePlaceView);
+            distanceTv = view.findViewById(R.id.singlePlaceDist);
+
+
         }
 
         public void onBindViewHolder(PlaceData placeData) {
             ivImage.setImageResource(placeData.getImageResourceId());
             tvTitle.setText(placeData.getName());
             tvOverview.setText(placeData.getOverview());
+            distanceTv.setText((int)placeData.getDistance() + " Meters");
         }
     }
 

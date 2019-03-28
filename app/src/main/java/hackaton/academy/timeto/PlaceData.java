@@ -5,12 +5,13 @@ public class PlaceData {
     private String name;
     private int imageResourceId;
     private String overview;
+    private float distance;
 
-
-    public PlaceData(int imageResourceId, String name,  String overview) {
+    public PlaceData(int imageResourceId, String name,  String overview, float distance) {
         this.name = name;
         this.imageResourceId = imageResourceId;
         this.overview = overview;
+        this.distance = distance;
     }
 
     public String getName() {
@@ -35,5 +36,13 @@ public class PlaceData {
 
     public void setOverview(String overview) {
         this.overview = overview;
+    }
+
+    public float getDistance() {
+        return distance;
+    }
+
+    public void setDistance(float distance) {
+        this.distance = distance;
     }
 }
