@@ -83,5 +83,5 @@ public class PlaceViewAdapter extends RecyclerView.Adapter<PlaceViewAdapter.View
             //openSecondActivity.putExtra("id", pos);
             //mContext.startActivity(openSecondActivity);
         }
-    };
+    }
 }
