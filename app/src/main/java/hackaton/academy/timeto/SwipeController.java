@@ -17,15 +17,9 @@ enum ButtonsState {
     RIGHT_VISIBLE
 }
 
-abstract class SwipeControllerActions {
 
-    public void onLeftClicked(int position) {}
 
-    public void onRightClicked(int position) {}
-
-}
-
-class SwipeController extends Callback {
+public class SwipeController extends Callback {
 
     private boolean swipeBack = false;
 

@@ -6,19 +6,10 @@ import android.support.design.widget.BottomNavigationView;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.view.MenuItem;
-import android.widget.Toast;
-import hackaton.academy.timeto.Fragment.BarFragment;
-import java.util.List;
 
+import hackaton.academy.timeto.Fragment.BarFragment;
 import hackaton.academy.timeto.Fragment.ClubFragment;
 import hackaton.academy.timeto.Fragment.RestFragment;
-import hackaton.academy.timeto.model.Place;
-import hackaton.academy.timeto.model.Result;
-import hackaton.academy.timeto.rest.PlacesService;
-import hackaton.academy.timeto.rest.RestManager;
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -100,22 +91,6 @@ public class MainActivity extends AppCompatActivity {
 
         setupViewPager(viewPager);
 
-        PlacesService moviesService = RestManager.getPlaceServiceInstance();
-        moviesService.getPlaces("-33.8670522,151.1957362", 1500, "restaurant", Constants.API_KEY).enqueue(new Callback<Place>() {
-            @Override
-            public void onResponse(Call<Place> call, Response<Place> response) {
-                Toast.makeText(MainActivity.this, "Request successful " + response.code(), Toast.LENGTH_SHORT).show();
-
-                Place body = response.body();
-
-                Toast.makeText(MainActivity.this, "" + body.getResults().get(0).getName(), Toast.LENGTH_SHORT).show();
-            }
-
-            @Override
-            public void onFailure(Call<Place> call, Throwable t) {
-                Toast.makeText(MainActivity.this, "Request failed", Toast.LENGTH_SHORT).show();
-            }
-        });
     }
 
     private void setupViewPager(ViewPager viewPager) {
