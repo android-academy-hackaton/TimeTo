@@ -3,7 +3,6 @@ package hackaton.academy.timeto;
 import android.Manifest;
 import android.content.ContentResolver;
 import android.content.Context;
-import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.database.Cursor;
 import android.os.Build;
@@ -14,15 +13,27 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ArrayAdapter;
 import android.widget.BaseAdapter;
 import android.widget.Button;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.gson.JsonObject;
+
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.List;
+
+import hackaton.academy.timeto.rest.Contact;
+import hackaton.academy.timeto.rest.RestManager;
+import hackaton.academy.timeto.rest.TimetoApiClient;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 
 public class FindContactsActivity extends AppCompatActivity {
@@ -30,12 +41,46 @@ public class FindContactsActivity extends AppCompatActivity {
     private static final int PERMISSIONS_REQUEST_READ_CONTACTS = 100;
     private static final String TAG ="mo" ;
     ListView listview;
+    Button inviteButton;
     List<String> data_array;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.view_contacts_dialogue);
+        inviteButton = findViewById(R.id.inviteButtonClick);
+
+        inviteButton.setOnClickListener(new View.OnClickListener() {
+                                            @Override
+                                            public void onClick(View view) {
+                                                TimetoApiClient timeslotApiClient = RestManager.getTimeToApiClientInstance();
+                                                final Contact c1 = new Contact();
+                                                c1.name = "moria";
+                                                c1.id = "afdafdafad";
+                                                c1.phone = "+972542325333";
+                                                ArrayList a = new ArrayList<Contact>();
+                                                a.add(c1);
+
+//                                                JSONObject json = new JSONObject();
+//                                                Contact[] contacts = {c1};
+
+                                                    //json.put("contacts",contacts);
+                                                    timeslotApiClient.iniviteContacts(a).enqueue(new Callback<Boolean>() {
+                                                        @Override
+                                                        public void onResponse(Call<Boolean> call, Response<Boolean> response) {
+                                                        }
+
+                                                        @Override
+                                                        public void onFailure(Call<Boolean> call, Throwable t) {
+
+                                                        }
+                                                    });
+
+
+
+                                            }
+                                        });
+
         showContacts();
 
 
