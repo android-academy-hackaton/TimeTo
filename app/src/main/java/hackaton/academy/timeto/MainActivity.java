@@ -1,11 +1,16 @@
 package hackaton.academy.timeto;
 
+import android.app.Dialog;
+import android.content.Intent;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
+import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.SeekBar;
 import android.widget.TextView;
@@ -20,6 +25,9 @@ public class MainActivity extends AppCompatActivity {
 
     //This is our viewPager
     private ViewPager viewPager;
+
+    Button orderPlaceButton;
+    Button viewContactsButton;
 
     //Fragments
     RestFragment chatFragment;
@@ -42,6 +50,29 @@ public class MainActivity extends AppCompatActivity {
         clubImageButton = findViewById(R.id.club_btn);
         seekBar = findViewById(R.id.simpleSeekBar);
         final TextView seekBarValue = findViewById(R.id.milles);
+
+        orderPlaceButton = findViewById(R.id.orderPlaceButton);
+
+        orderPlaceButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                final Dialog fbDialogue = new Dialog(MainActivity.this, android.R.style.Theme_Black_NoTitleBar);
+                fbDialogue.getWindow().setBackgroundDrawable(new ColorDrawable(Color.argb(100, 0, 0, 0)));
+                fbDialogue.setContentView( R.layout.order_place_dialogue);
+
+                viewContactsButton =  fbDialogue.findViewById(R.id.viewContactsButton);
+                viewContactsButton.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        Intent myIntent = new Intent(MainActivity.this,FindContactsActivity.class);
+//                          myIntent.putExtra("key", value); //Optional parameters
+                        startActivity(myIntent);
+                    }
+                });
+                fbDialogue.setCancelable(true);
+                fbDialogue.show();
+            }
+        });
 
         seekBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener(){
 
