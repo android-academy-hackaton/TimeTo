@@ -1,6 +1,7 @@
 package hackaton.academy.timeto;
 
 import android.Manifest;
+import android.app.Activity;
 import android.content.ContentResolver;
 import android.content.Context;
 import android.content.pm.PackageManager;
@@ -43,10 +44,13 @@ public class FindContactsActivity extends AppCompatActivity {
     ListView listview;
     Button inviteButton;
     List<String> data_array;
+    Activity activity;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        activity = this;
         setContentView(R.layout.view_contacts_dialogue);
         inviteButton = findViewById(R.id.inviteButtonClick);
 
@@ -75,6 +79,9 @@ public class FindContactsActivity extends AppCompatActivity {
 
                                                         }
                                                     });
+
+                                                activity.finish();
+
 
 
 
