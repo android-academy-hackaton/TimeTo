@@ -12,6 +12,8 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import android.view.View;
+import android.widget.ImageButton;
 import android.widget.SeekBar;
 import android.widget.TextView;
 
@@ -21,7 +23,6 @@ import hackaton.academy.timeto.Fragment.RestFragment;
 
 public class MainActivity extends AppCompatActivity {
 
-    BottomNavigationView bottomNavigationView;
 
 
     //This is our viewPager
@@ -34,18 +35,27 @@ public class MainActivity extends AppCompatActivity {
     MenuItem prevMenuItem;
     Button orderPlaceButton;
     Button viewContactsButton;
+
+    ImageButton restaurantImageButton;
+    ImageButton barImageButton;
+    ImageButton clubImageButton;
+    SeekBar seekBar;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
         //Initializing viewPager
-        viewPager = (ViewPager) findViewById(R.id.viewpager);
 
-        //Initializing the bottomNavigationView
-        bottomNavigationView = findViewById(R.id.bottom_navigation);
 
         orderPlaceButton = findViewById(R.id.orderPlaceButton);
+        viewPager = findViewById(R.id.viewpager);
+        restaurantImageButton = findViewById(R.id.restrant_btn);
+        barImageButton = findViewById(R.id.bar_btn);
+        clubImageButton = findViewById(R.id.club_btn);
+        seekBar = findViewById(R.id.simpleSeekBar);
+
+
 
         orderPlaceButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -68,31 +78,8 @@ public class MainActivity extends AppCompatActivity {
                     }
                 });
 
-
-
-
-
-
-        bottomNavigationView.setOnNavigationItemSelectedListener(
-                new BottomNavigationView.OnNavigationItemSelectedListener() {
-                    @Override
-                    public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-                        switch (item.getItemId()) {
-                            case R.id.menu_pabs:
-                                viewPager.setCurrentItem(0);
-                                break;
-                            case R.id.menu_restaurants:
-                                viewPager.setCurrentItem(1);
-                                break;
-                            case R.id.menu_club:
-                                viewPager.setCurrentItem(2);
-                                break;
-                        }
-                        return false;
-                    }
-                });
-
         SeekBar seekBar = findViewById(R.id.simpleSeekBar);
+
         final TextView seekBarValue = findViewById(R.id.milles);
 
         seekBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener(){
@@ -115,27 +102,33 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-
-        viewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
+        restaurantImageButton.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
-
+            public void onClick(View view) {
+                viewPager.setCurrentItem(0);
+                restaurantImageButton.setImageResource(R.drawable.rest);
+                barImageButton.setImageResource(R.drawable.bar_non_selected);
+                clubImageButton.setImageResource(R.drawable.club_non_selected);
             }
+        });
 
+        barImageButton.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onPageSelected(int position) {
-                if (prevMenuItem != null) {
-                    prevMenuItem.setChecked(false);
-                } else {
-                    bottomNavigationView.getMenu().getItem(0).setChecked(false);
-                }
-                bottomNavigationView.getMenu().getItem(position).setChecked(true);
-                prevMenuItem = bottomNavigationView.getMenu().getItem(position);
+            public void onClick(View view) {
+                viewPager.setCurrentItem(1);
+                restaurantImageButton.setImageResource(R.drawable.rest_non_selected);
+                barImageButton.setImageResource(R.drawable.bar);
+                clubImageButton.setImageResource(R.drawable.club_non_selected);
             }
+        });
 
+        clubImageButton.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onPageScrollStateChanged(int state) {
-
+            public void onClick(View view) {
+                viewPager.setCurrentItem(2);
+                restaurantImageButton.setImageResource(R.drawable.rest_non_selected);
+                barImageButton.setImageResource(R.drawable.bar_non_selected);
+                clubImageButton.setImageResource(R.drawable.club);
             }
         });
 

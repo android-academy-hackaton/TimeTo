@@ -1,60 +1,72 @@
 <?xml version="1.0" encoding="utf-8"?>
+
 <android.support.constraint.ConstraintLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/singlePlaceView"
-    android:layout_width="match_parent"
-    android:layout_height="100dp"
-    android:background="@color/back">
+    android:layout_height="wrap_content"
+    android:layout_width="match_parent">
 
-    <ImageView
-        android:id="@+id/singlePlacePic"
-        android:layout_width="123dp"
-        android:layout_height="86dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@mipmap/ic_launcher" />
+    <android.support.v7.widget.CardView
 
-    <TextView
-        android:id="@+id/singlePlaceTitle"
-        android:layout_width="0dp"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="12dp"
-        android:text="Title"
-        android:textColor="@color/White"
-        app:layout_constraintStart_toStartOf="@+id/singlePlaceContext"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <TextView
-        android:id="@+id/singlePlaceContext"
-        android:layout_width="262dp"
-        android:layout_height="19dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginLeft="8dp"
-        android:layout_marginTop="8dp"
-        android:text="Context"
-        android:textColor="@color/Gray"
-        app:layout_constraintStart_toEndOf="@+id/singlePlacePic"
-        app:layout_constraintTop_toBottomOf="@+id/singlePlaceTitle" />
-
-    <TextView
-        android:id="@+id/singlePlaceDist"
-        android:layout_width="109dp"
-        android:layout_height="20dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginLeft="8dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginRight="8dp"
-        android:layout_marginBottom="8dp"
-        android:text="distance"
-        android:textColor="@color/Gray"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="@+id/singlePlaceContext"
-        app:layout_constraintTop_toBottomOf="@+id/singlePlaceContext" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <android.support.constraint.ConstraintLayout
+            android:id="@+id/singlePlaceView"
+            android:layout_width="match_parent"
+            android:layout_height="100dp"
+            android:background="@color/back">
+
+            <ImageView
+                android:id="@+id/singlePlacePic"
+                android:layout_width="123dp"
+                android:layout_height="86dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:srcCompat="@mipmap/ic_launcher" />
+
+            <TextView
+                android:id="@+id/singlePlaceTitle"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:layout_marginLeft="8dp"
+                android:layout_marginTop="4dp"
+                android:text="Title"
+                android:textColor="@color/White"
+                android:textSize="16sp"
+                app:layout_constraintStart_toEndOf="@+id/singlePlacePic"
+                app:layout_constraintTop_toBottomOf="@+id/stars_iv" />
+
+            <TextView
+                android:id="@+id/singlePlaceDist"
+                android:layout_width="109dp"
+                android:layout_height="20dp"
+                android:layout_marginTop="4dp"
+                android:text="distance"
+                android:textColor="@color/Gray"
+                app:layout_constraintStart_toStartOf="@+id/singlePlaceTitle"
+                app:layout_constraintTop_toBottomOf="@+id/singlePlaceTitle"
+                tools:visibility="visible" />
+
+            <ImageView
+                android:id="@+id/stars_iv"
+                android:layout_width="wrap_content"
+                android:layout_height="14dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginEnd="8dp"
+                android:layout_marginRight="8dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:srcCompat="@drawable/star_three" />
+        </android.support.constraint.ConstraintLayout>
+    </android.support.v7.widget.CardView>
 </android.support.constraint.ConstraintLayout>

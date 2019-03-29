@@ -51,7 +51,7 @@ public class PlaceViewAdapter extends RecyclerView.Adapter<PlaceViewAdapter.View
 
         public ImageView ivImage;
         public TextView tvTitle;
-        public TextView tvOverview;
+        public ImageView starsIv;
         public ConstraintLayout clLayout;
         public TextView distanceTv;
 
@@ -59,7 +59,7 @@ public class PlaceViewAdapter extends RecyclerView.Adapter<PlaceViewAdapter.View
             super(view);
             ivImage = view.findViewById(R.id.singlePlacePic);
             tvTitle = view.findViewById(R.id.singlePlaceTitle);
-            tvOverview = view.findViewById(R.id.singlePlaceContext);
+            starsIv = view.findViewById(R.id.stars_iv);
             clLayout = view.findViewById(R.id.singlePlaceView);
             distanceTv = view.findViewById(R.id.singlePlaceDist);
 
@@ -71,8 +71,22 @@ public class PlaceViewAdapter extends RecyclerView.Adapter<PlaceViewAdapter.View
             Picasso.get().load(imageUrl+placeData.getImageURL()).into(ivImage);
 //            ivImage.setImageResource(placeData.getImageResourceId());
             tvTitle.setText(placeData.getName());
-            tvOverview.setText(placeData.getOverview());
             distanceTv.setText((int)placeData.getDistance() + " Meters");
+
+            double value = 5;
+        //    if(placeData.getOverview() != null && !placeData.getOverview().equals("")) {
+     //           value = Double.parseDouble(placeData.getOverview());
+        //    }
+            if(value < 1.5) {
+                starsIv.setImageResource(R.drawable.star_one);
+            } else if (value < 2.5) {
+                starsIv.setImageResource(R.drawable.star_two);
+            } else if (value < 3.5) {
+                starsIv.setImageResource(R.drawable.star_three);
+            } else if (value < 4.0) {
+                starsIv.setImageResource(R.drawable.star_four);
+            }
+            else starsIv.setImageResource(R.drawable.star_five);
         }
     }
 

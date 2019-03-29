@@ -179,14 +179,15 @@ public class BarFragment extends Fragment {
                                             placeLocation.setLongitude(lon);
                                             float distance = placeLocation.distanceTo(location);
                                             List<Photo> photos = results.get(i).getPhotos();
-                                            if (photos.size() > 0)
+                                            if (photos != null && photos.size() > 0)
                                             {
                                                 photoRefernce = photos.get(0).getPhotoReference();
-                                            }
+
                                             places.add(new
                                                     PlaceData(photoRefernce,
                                                     results.get(i).getName(),
                                                     "" + results.get(i).getRating(), distance));
+                                            }
                                         }
                                         mAdapter.notifyDataSetChanged();
                                     }
