@@ -6,6 +6,8 @@ import android.support.design.widget.BottomNavigationView;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.view.MenuItem;
+import android.widget.SeekBar;
+import android.widget.TextView;
 
 import hackaton.academy.timeto.Fragment.BarFragment;
 import hackaton.academy.timeto.Fragment.ClubFragment;
@@ -52,6 +54,30 @@ public class MainActivity extends AppCompatActivity {
                         return false;
                     }
                 });
+
+        SeekBar seekBar = findViewById(R.id.simpleSeekBar);
+        final TextView seekBarValue = findViewById(R.id.milles);
+
+        seekBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener(){
+
+            @Override
+            public void onProgressChanged(SeekBar seekBar, int progress,
+                                          boolean fromUser) {
+                // TODO Auto-generated method stub
+                seekBarValue.setText(String.valueOf(progress*10) + "Miles");
+            }
+
+            @Override
+            public void onStartTrackingTouch(SeekBar seekBar) {
+                // TODO Auto-generated method stub
+            }
+
+            @Override
+            public void onStopTrackingTouch(SeekBar seekBar) {
+                // TODO Auto-generated method stub
+            }
+        });
+
 
         viewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
             @Override
