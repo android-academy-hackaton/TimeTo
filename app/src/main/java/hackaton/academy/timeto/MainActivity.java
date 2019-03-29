@@ -64,7 +64,7 @@ public class MainActivity extends AppCompatActivity {
             public void onProgressChanged(SeekBar seekBar, int progress,
                                           boolean fromUser) {
                 // TODO Auto-generated method stub
-                seekBarValue.setText(String.valueOf(progress*10) + "Miles");
+                seekBarValue.setText(String.valueOf(progress*10) + "Meters");
             }
 
             @Override
