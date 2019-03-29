@@ -14,6 +14,10 @@
         android:background="#FFFFFF"
         android:paddingTop="10dp">
 
+        <TimePicker
+            android:id="@+id/timePicker1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
         <Button
             android:id="@+id/viewContactsButton"
             android:layout_width="wrap_content"
@@ -22,7 +26,7 @@
             android:layout_alignParentTop="true"
             android:layout_marginStart="90dp"
             android:padding="10dp"
-            android:text="View Contacts"
+            android:text="Invite"
             android:textSize="10dp" />
 
 
