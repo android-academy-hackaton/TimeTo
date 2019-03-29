@@ -1,17 +1,10 @@
 package hackaton.academy.timeto;
 
-import android.app.Dialog;
-import android.content.Intent;
-import android.graphics.Color;
-import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
-import android.view.MenuItem;
-import android.view.View;
-import android.widget.Button;
 import android.view.View;
 import android.widget.ImageButton;
 import android.widget.SeekBar;
@@ -23,7 +16,7 @@ import hackaton.academy.timeto.Fragment.RestFragment;
 
 public class MainActivity extends AppCompatActivity {
 
-
+    BottomNavigationView bottomNavigationView;
 
     //This is our viewPager
     private ViewPager viewPager;
@@ -32,9 +25,6 @@ public class MainActivity extends AppCompatActivity {
     RestFragment chatFragment;
     BarFragment callsFragment;
     ClubFragment contactsFragment;
-    MenuItem prevMenuItem;
-    Button orderPlaceButton;
-    Button viewContactsButton;
 
     ImageButton restaurantImageButton;
     ImageButton barImageButton;
@@ -46,40 +36,11 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         //Initializing viewPager
-
-
-        orderPlaceButton = findViewById(R.id.orderPlaceButton);
         viewPager = findViewById(R.id.viewpager);
         restaurantImageButton = findViewById(R.id.restrant_btn);
         barImageButton = findViewById(R.id.bar_btn);
         clubImageButton = findViewById(R.id.club_btn);
         seekBar = findViewById(R.id.simpleSeekBar);
-
-
-
-        orderPlaceButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                        final Dialog fbDialogue = new Dialog(MainActivity.this, android.R.style.Theme_Black_NoTitleBar);
-                        fbDialogue.getWindow().setBackgroundDrawable(new ColorDrawable(Color.argb(100, 0, 0, 0)));
-                        fbDialogue.setContentView( R.layout.order_place_dialogue);
-
-                        viewContactsButton =  fbDialogue.findViewById(R.id.viewContactsButton);
-                        viewContactsButton.setOnClickListener(new View.OnClickListener() {
-                         @Override
-                        public void onClick(View view) {
-                             Intent myIntent = new Intent(MainActivity.this,FindContactsActivity.class);
-//                          myIntent.putExtra("key", value); //Optional parameters
-                             startActivity(myIntent);
-                        }
-                });
-                        fbDialogue.setCancelable(true);
-                        fbDialogue.show();
-                    }
-                });
-
-        SeekBar seekBar = findViewById(R.id.simpleSeekBar);
-
         final TextView seekBarValue = findViewById(R.id.milles);
 
         seekBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener(){
@@ -88,7 +49,7 @@ public class MainActivity extends AppCompatActivity {
             public void onProgressChanged(SeekBar seekBar, int progress,
                                           boolean fromUser) {
                 // TODO Auto-generated method stub
-                seekBarValue.setText(String.valueOf(progress*50) + " Meters");
+                seekBarValue.setText(String.valueOf(progress*50) + "Meters");
             }
 
             @Override
@@ -149,7 +110,6 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
-
     private void setupViewPager(ViewPager viewPager) {
         ViewPagerAdapter adapter = new ViewPagerAdapter(getSupportFragmentManager());
         callsFragment = new BarFragment();
@@ -159,5 +119,6 @@ public class MainActivity extends AppCompatActivity {
         adapter.addFragment(chatFragment);
         adapter.addFragment(contactsFragment);
         viewPager.setAdapter(adapter);
+
     }
 }
