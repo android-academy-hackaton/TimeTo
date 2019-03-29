@@ -1,11 +1,17 @@
 package hackaton.academy.timeto;
 
+import android.app.Dialog;
+import android.content.Intent;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.Button;
 import android.widget.SeekBar;
 import android.widget.TextView;
 
@@ -17,6 +23,7 @@ public class MainActivity extends AppCompatActivity {
 
     BottomNavigationView bottomNavigationView;
 
+
     //This is our viewPager
     private ViewPager viewPager;
 
@@ -25,7 +32,8 @@ public class MainActivity extends AppCompatActivity {
     BarFragment callsFragment;
     ClubFragment contactsFragment;
     MenuItem prevMenuItem;
-
+    Button orderPlaceButton;
+    Button viewContactsButton;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -36,6 +44,35 @@ public class MainActivity extends AppCompatActivity {
 
         //Initializing the bottomNavigationView
         bottomNavigationView = findViewById(R.id.bottom_navigation);
+
+        orderPlaceButton = findViewById(R.id.orderPlaceButton);
+
+        orderPlaceButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                        final Dialog fbDialogue = new Dialog(MainActivity.this, android.R.style.Theme_Black_NoTitleBar);
+                        fbDialogue.getWindow().setBackgroundDrawable(new ColorDrawable(Color.argb(100, 0, 0, 0)));
+                        fbDialogue.setContentView( R.layout.order_place_dialogue);
+
+                        viewContactsButton =  fbDialogue.findViewById(R.id.viewContactsButton);
+                        viewContactsButton.setOnClickListener(new View.OnClickListener() {
+                         @Override
+                        public void onClick(View view) {
+                             Intent myIntent = new Intent(MainActivity.this,FindContactsActivity.class);
+//                          myIntent.putExtra("key", value); //Optional parameters
+                             startActivity(myIntent);
+                        }
+                });
+                        fbDialogue.setCancelable(true);
+                        fbDialogue.show();
+                    }
+                });
+
+
+
+
+
+
         bottomNavigationView.setOnNavigationItemSelectedListener(
                 new BottomNavigationView.OnNavigationItemSelectedListener() {
                     @Override
@@ -118,6 +155,7 @@ public class MainActivity extends AppCompatActivity {
         setupViewPager(viewPager);
 
     }
+
 
     private void setupViewPager(ViewPager viewPager) {
         ViewPagerAdapter adapter = new ViewPagerAdapter(getSupportFragmentManager());
